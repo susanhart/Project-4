@@ -5,6 +5,6 @@ class Game {
     constructor() {
         this.missed = 0;
         this.phrases = ["car wash", "retail therapy"]
-        this.activePhrase = "you win";
+        this.activePhrase = null;
 } 
 }  
