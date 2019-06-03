@@ -31,7 +31,12 @@ class Game {
         let randomphrase = this.getRandomPhrase();
         // Task4: on the random_phrase variable, call the method 'addPhraseToDisplay'
         randomphrase.addPhraseToDisplay();
+        this.activePhrase = randomphrase
 
+    }
+    handleInteraction(letter) {
+       phrase.checkLetter(letter)
+       phrase.showMatchedLetter(letter)
     }
 }  
 

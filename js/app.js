@@ -2,8 +2,14 @@
  * Project 4 - OOP Game App
  * app.js */
 const phrase = new Phrase("THIS IS A VERY NEW PHRASE");
-const game = new Game();
-game.startGame();
+let game = new Game();
+document.getElementById("btn__reset").addEventListener("click", startButton);
+function startButton(){
+  game = new Game();
+  game.startGame();
+}
+document.getElementById("key").addEventListener("click", startButton);
+
 //console.log(phrase.phrase);
 //
 //console.log(game.getRandomPhrase());

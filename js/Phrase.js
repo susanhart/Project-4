@@ -41,6 +41,23 @@ class Phrase {
         }
         phrase_html_div.appendChild(phrase_ul);
     };
+    checkLetter(letter) {
+        if (this.phrase.includes(letter)) {
+            return true;
+        }else {
+                return false;
+        }
+        
+    }
+    showMatchedLetter(letter) {
+        var matchedLetters = document.getElementsByClassName(letter); 
+        var i;
+        for (i = 0; i < matchedLetters.length;i++) {
+            matchedLetters[i].classList.remove("hide");
+            matchedLetters[i].classList.add("show");
+        }
+
+    };
 }
  
 
