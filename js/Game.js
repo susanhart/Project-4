@@ -37,6 +37,31 @@ class Game {
     handleInteraction(letter) {
        phrase.checkLetter(letter)
        phrase.showMatchedLetter(letter)
+      
+       
+       game.handleinteraction(event.target.textContent, e.target)
+       documents.getelementbyclassName(.key) 
+       const keyboard = documents.getelementsbyclassname. 
+       for (let i =0, i<keyboard.length, i++)
+       keyboard[i].addEventlistener('click',()=>
+       game.handleinteraction
+
+       const newGame = new Game();
+       const phrase = new Phrase();
+       const keyboard = [...document.querySelectorAll('.key')]; //Array of keyboard keys
+       const startButton = document.querySelector('#btn__reset');
+       const overlay = document.querySelector('#overlay');//phrase hunter with the start button
+       //Event Handlers
+       // Mapping through the onscreen keys and having the event listener run through all the keys
+       keyboard.map(key =>
+        key.addEventListener('click', e=> {
+            newGame.handleInteraction(e.target.textContent, e.target)
+        })
+        //Function that calls startGame when the start button is clicked.
+        startButton.addEventListener('click', () => {
+            newGame.startGame(); // Start the Game
+        })
+        )
     }
 }  
 
