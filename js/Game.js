@@ -36,32 +36,32 @@ class Game {
     }
     handleInteraction(letter) {
        phrase.checkLetter(letter)
-       phrase.showMatchedLetter(letter)
+       //check to see if its a win or remove a life, if else statement
+       phrase.showMatchedLetter(letter) //if the letter is there, show the matched letter, otherwise remove a life
       
        
-       game.handleinteraction(event.target.textContent, e.target)
-       documents.getelementbyclassName(.key) 
-       const keyboard = documents.getelementsbyclassname. 
-       for (let i =0, i<keyboard.length, i++)
-       keyboard[i].addEventlistener('click',()=>
-       game.handleinteraction
-
-       const newGame = new Game();
-       const phrase = new Phrase();
-       const keyboard = [...document.querySelectorAll('.key')]; //Array of keyboard keys
-       const startButton = document.querySelector('#btn__reset');
-       const overlay = document.querySelector('#overlay');//phrase hunter with the start button
+       
+       //documents.getelementbyclassName(.key) 
+       //const keyboard = documents.getelementsbyclassname. 
+       //for (let i =0, i<keyboard.length, i++)
+       //keyboard[i].addEventlistener('click',()=>
+       
+       //const newGame = new Game();
+       //const phrase = new Phrase();
+       //const keyboard = [...document.querySelectorAll('.key')]; //Array of keyboard keys
+       //const startButton = document.querySelector('#btn__reset');
+       //const overlay = document.querySelector('#overlay');//phrase hunter with the start button
        //Event Handlers
        // Mapping through the onscreen keys and having the event listener run through all the keys
-       keyboard.map(key =>
-        key.addEventListener('click', e=> {
-            newGame.handleInteraction(e.target.textContent, e.target)
-        })
+       //keyboard.map(key =>
+        //key.addEventListener('click', e=> {
+        //    newGame.handleInteraction(e.target.textContent, e.target)
+        //}));
         //Function that calls startGame when the start button is clicked.
-        startButton.addEventListener('click', () => {
-            newGame.startGame(); // Start the Game
-        })
-        )
+        //startButton.addEventListener('click', () => {
+          //  newGame.startGame(); // Start the Game
+        //})
+        
     }
 }  
 

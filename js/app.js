@@ -8,7 +8,9 @@ function startButton(){
   game = new Game();
   game.startGame();
 }
-document.getElementById("key").addEventListener("click", startButton);
+const allKeys = document.getElementsByClassName("key");
+console.log(allKeys);
+//add an event listener for loop for each of the array of 26 letters, have to add an event lsitener to all the buttons, adding an event lsitener to each one, like the pagination
 
 //console.log(phrase.phrase);
 //
