@@ -16,7 +16,7 @@ class Game {
                         new Phrase("stay vacation")]
         //this.phrases = [];
         this.activePhrase = null;
-        this.revealed_letters = null; 
+        this.revealed_letters = {};
         this.lives_left = null; 
         this.game_over_callback = null; 
     } 
@@ -51,7 +51,8 @@ class Game {
         // Task: get the overlay html element using the document.getElementById
         let overlay_html_div = document.getElementById("overlay");
         // Using this html element you've obtained, hide it. (hint. you might need to check google)
-        overlay_html_div.style.display = "none";
+        //overlay_html_div.style.display =   "none";
+        overlay_html_div.style.visibility = "hidden";
         // Task3: get a random phrase, and store it in a variable called 'random_phrase'
         let randomphrase = this.getRandomPhrase();
         // Task4: on the random_phrase variable, call the method 'addPhraseToDisplay'
@@ -63,7 +64,7 @@ class Game {
         console.log(randomphrase.phrase); 
 
     }
-    handleInteraction(letter) {
+    handleInteraction(letter, key_html_element) {
        let isletter = this.activePhrase.checkLetter(letter);
        console.log("THis exist ? ",isletter);
        //check to see if its a win or remove a life, if else statement
@@ -71,9 +72,11 @@ class Game {
        if ( isletter === true){
             this.activePhrase.showMatchedLetter(letter ) //if the letter is there, show the matched letter, otherwise remove a life
             this.setLetterAsRevealed(letter);
-
+            // change the character color to indicate right choice
+            key_html_element.setAttribute("class","key chosen");
        }else{
-           console.log("Decrementing Heart count"); 
+           // change the characer color to indicate wrong choice 
+           key_html_element.setAttribute("class","key wrong");
            this.removeLife();
        }
        // check to see if it is a loss due to zero lives left
