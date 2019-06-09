@@ -1,15 +1,91 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
-const phrase = new Phrase("THIS IS A VERY NEW PHRASE");
-let game = new Game();
-document.getElementById("btn__reset").addEventListener("click", startButton);
-function startButton(){
-  game = new Game();
-  game.startGame();
+
+ //
+//const phrase = new Phrase("THIS IS A VERY NEW PHRASE");
+//let game = new Game();
+ 
+class App  {
+  constructor(){
+    this.activeGame = null; 
+     
+  }
+
+  getActiveGame(){
+    return this.activeGame; 
+  }
+
+  //initializeApp
+
+  startGame = () => {
+    console.log("started game")
+    const game = new Game();
+    game.addEndGameCallback(this.gameOver);
+    this.activeGame = game; 
+    this.activeGame.startGame();
+  }
+
+  gameOver = (game_status) =>{
+    if ( game_status ===  Game.GAME_WON) { 
+        // Task: get the overlay html element using the document.getElementById
+        let overlay_html_div = document.getElementById("overlay");
+        // Using this html element you've obtained, hide it. (hint. you might need to check google)
+        overlay_html_div.style.display = "true";
+        //this.startGame()
+    }else{
+      alert("You lost the game") 
+    }
+  }
+ 
+
 }
-const allKeys = document.getElementsByClassName("key");
-console.log(allKeys);
+ 
+const setEventListeners = (app) =>{ 
+  const allKeys = document.getElementsByClassName("key");
+ 
+
+  const KeyEventListener = (event) =>{
+    let letter = event.target.innerHTML;
+
+    app.getActiveGame().handleInteraction(letter);
+    console.log(letter);
+  }
+  //add an event listener for loop for each of the array of 26 letters, have to add an event lsitener to all the buttons, adding an event lsitener to each one, like the pagination
+  for ( let i = 0; i < allKeys.length; i++){
+    const element = allKeys[i]; 
+    element.addEventListener("click",KeyEventListener);
+  }
+
+}
+
+setAppStartButtonListener = (app) =>{ 
+  // set startButton Listener 
+  document.getElementById("btn__reset").addEventListener("click", app.startGame);
+}
+
+/////  MAIN GLOBAL FUNCTIONS 
+const createApp = () =>{ 
+  const app = new App();
+  return app; 
+}
+
+const setupApp = (app) =>{  
+
+  setAppStartButtonListener(app); 
+  setEventListeners(app); 
+}
+
+
+const main_app = createApp(); 
+setupApp(main_app);
+ 
+
+ 
+
+
+
+ 
 //add an event listener for loop for each of the array of 26 letters, have to add an event lsitener to all the buttons, adding an event lsitener to each one, like the pagination
 
 //console.log(phrase.phrase);

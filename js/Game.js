@@ -1,7 +1,12 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * Game.js */
+
+
 class Game {
+    static GAME_LOST = "GAME_LOST";
+    static  GAME_WON = "GAME_WON";
+
     constructor() {
         this.missed = 0;
         this.phrases = [new Phrase("car wash"), 
@@ -11,7 +16,27 @@ class Game {
                         new Phrase("stay vacation")]
         //this.phrases = [];
         this.activePhrase = null;
+        this.revealed_letters = null; 
+        this.lives_left = null; 
+        this.game_over_callback = null; 
     } 
+
+    addEndGameCallback(callback){
+        this.game_over_callback = callback; 
+    }
+
+    setActivePhrase(active_phrase){
+        this.activePhrase = active_phrase; 
+        this.activePhrase.buildCharacterFrequencyMap();
+    }
+
+    setLetterAsRevealed(letter){
+        if (this.revealed_letters === null){
+            this.revealed_letters = { }
+        }
+        this.revealed_letters[letter] = true;
+ 
+    }
 
     // returns a random phrase from the phrases array
     getRandomPhrase(){
@@ -31,37 +56,85 @@ class Game {
         let randomphrase = this.getRandomPhrase();
         // Task4: on the random_phrase variable, call the method 'addPhraseToDisplay'
         randomphrase.addPhraseToDisplay();
-        this.activePhrase = randomphrase
+        //this.activePhrase = randomphrase
+        this.setActivePhrase(randomphrase);
+
+        // TODO: remove this when done 
+        console.log(randomphrase.phrase); 
 
     }
     handleInteraction(letter) {
-       phrase.checkLetter(letter)
+       let isletter = this.activePhrase.checkLetter(letter);
+       console.log("THis exist ? ",isletter);
        //check to see if its a win or remove a life, if else statement
-       phrase.showMatchedLetter(letter) //if the letter is there, show the matched letter, otherwise remove a life
-      
-       
-       
-       //documents.getelementbyclassName(.key) 
-       //const keyboard = documents.getelementsbyclassname. 
-       //for (let i =0, i<keyboard.length, i++)
-       //keyboard[i].addEventlistener('click',()=>
-       
-       //const newGame = new Game();
-       //const phrase = new Phrase();
-       //const keyboard = [...document.querySelectorAll('.key')]; //Array of keyboard keys
-       //const startButton = document.querySelector('#btn__reset');
-       //const overlay = document.querySelector('#overlay');//phrase hunter with the start button
-       //Event Handlers
-       // Mapping through the onscreen keys and having the event listener run through all the keys
-       //keyboard.map(key =>
-        //key.addEventListener('click', e=> {
-        //    newGame.handleInteraction(e.target.textContent, e.target)
-        //}));
-        //Function that calls startGame when the start button is clicked.
-        //startButton.addEventListener('click', () => {
-          //  newGame.startGame(); // Start the Game
-        //})
-        
+       //let iscomplete = this.checkForWin();
+       if ( isletter === true){
+            this.activePhrase.showMatchedLetter(letter ) //if the letter is there, show the matched letter, otherwise remove a life
+            this.setLetterAsRevealed(letter);
+
+       }else{
+           console.log("Decrementing Heart count"); 
+           this.removeLife();
+       }
+       // check to see if it is a loss due to zero lives left
+       if ( this.countLives() <= 0 ){
+           this.gameOver(Game.GAME_LOST);
+       }
+       // check to see if it is a win. 
+       if ( this.checkForWin()){
+            this.gameOver(Game.GAME_WON);
+        }  
+    }
+
+    checkForWin(){
+        // checks to see if the player has revealed all the letter in the phrase.
+        console.log("revealed letters ",this.revealed_letters);
+        console.log("active phrase =  ",this.activePhrase.phrase);
+        let res = this.activePhrase.isCharacterFreqMapSame(this.revealed_letters);
+        console.log("comparing gives = ",res); 
+        return res; 
+    }
+
+    gameOver(status){
+        this.game_over_callback(status); 
+    }
+
+    countLives(){
+        let alllives = document.getElementsByClassName("tries");
+        let count_lives_left = 0;
+        for (let i = 0; i < alllives.length; i++){
+            let target = alllives[i]; 
+            let innerhtml = target.innerHTML; 
+            if ( innerhtml.indexOf("liveHeart.png") !== -1){
+                count_lives_left++;
+ 
+            }
+        }
+        return count_lives_left;   
+    }
+
+    removeLife(){
+        let alllives = document.getElementsByClassName("tries");
+
+        let count_lives_left = this.countLives();
+
+        // replace the last_life_index with the lostHEart.png
+        if ( count_lives_left > 0){
+            let index = -1; 
+            for (let i = 0; i < alllives.length; i++){
+                let target = alllives[i]; 
+                let innerhtml = target.innerHTML; 
+                if ( innerhtml.indexOf("liveHeart.png") !== -1){
+                    let target_to_replace = alllives[i]; 
+                    target_to_replace.innerHTML = '<img src="images/lostHeart.png" alt="Heart Icon" height="35" width="30">'
+                    count_lives_left -= 1;
+                    break;
+                }
+               
+            }
+
+        }
+
     }
 }  
 

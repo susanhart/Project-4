@@ -4,6 +4,8 @@
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
+        this.character_frequency = null; 
+        //
     };
     //console.log(phrase.phrase)
     
@@ -42,22 +44,54 @@ class Phrase {
         phrase_html_div.appendChild(phrase_ul);
     };
     checkLetter(letter) {
+        console.log(" checkLetter:: checking ",letter); 
+
         if (this.phrase.includes(letter)) {
             return true;
         }else {
-                return false;
+             return false;
         }
         
     }
+
+    buildCharacterFrequencyMap(){ 
+        let charfreq = {};
+        for ( let i = 0; i < this.phrase.length; i++){
+            let char = this.phrase[i]; 
+            if ( char !== " "){
+                charfreq[char] = true; 
+            }
+           
+             
+        }
+        this.character_frequency = charfreq; 
+        console.log(charfreq );
+
+    }
+
     showMatchedLetter(letter) {
-        var matchedLetters = document.getElementsByClassName(letter); 
-        var i;
+        let matchedLetters = document.getElementsByClassName(letter); 
+        let i;
         for (i = 0; i < matchedLetters.length;i++) {
             matchedLetters[i].classList.remove("hide");
             matchedLetters[i].classList.add("show");
         }
 
     };
+
+    isCharacterFreqMapSame(character_freq_map){
+
+        for ( let letter in this.character_frequency){
+            if ( letter in character_freq_map){
+                if ( this.character_frequency[letter] !== character_freq_map[letter]){
+                    return false; 
+                }
+            }else{
+                return false; 
+            }
+        }
+        return true; 
+    }
 }
  
 
