@@ -2,6 +2,7 @@
  * Project 4 - OOP Game App
  * Phrase.js */
 
+
 class Phrase {
     constructor(phrase) {
         this.phrase = phrase.toLowerCase();
@@ -24,16 +25,17 @@ class Phrase {
 
         for (let i = 0; i < temporary.length; i++){
             const character = temporary[i]; 
-
  
             let single_li = document.createElement("LI");
             let text = null;
+            //Putting a space where there is a space, and not a letter.
             if (character === " "){    
                 
                  text = document.createTextNode(" ");      
                 single_li.setAttribute("class","space");
                  
-            }else{
+            }else{ 
+                //If it is a character, set the class attribute to hide letter.
  
                  text = document.createTextNode(character);         
                 single_li.setAttribute("class",`hide letter ${character}`); 
@@ -45,7 +47,7 @@ class Phrase {
         phrase_html_div.appendChild(phrase_ul);
     };
     checkLetter(letter) {
-        console.log(" checkLetter:: checking ",letter); 
+        //console.log(" checkLetter:: checking ",letter); 
 
         if (this.phrase.includes(letter)) {
             return true;
@@ -55,6 +57,8 @@ class Phrase {
         
     }
 
+    // buildCharacterFrequencyMap: builds an object that keeps one copy of each character in the phrase
+    // e.g car wash => {c:true, a:true, w:true, h:true, s:true, r:true}
     buildCharacterFrequencyMap(){ 
         let charfreq = {};
         for ( let i = 0; i < this.phrase.length; i++){
@@ -66,10 +70,11 @@ class Phrase {
              
         }
         this.character_frequency = charfreq; 
-        console.log(charfreq );
+        //console.log(charfreq );
 
     }
 
+    // Show the letters that match and hide the ones that don't.
     showMatchedLetter(letter) {
         let matchedLetters = document.getElementsByClassName(letter); 
         let i;
@@ -80,6 +85,10 @@ class Phrase {
 
     };
 
+    // isCharacterFreqMapSame: compares the input(character_freq_map) with the object's character frequence
+    // and returns true if they are the same and false otherwise 
+    // e.g car wash => {c:true, a:true, w:true, h:true, s:true, r:true}
+    // e.g input => {c:true, r:true, a:true}
     isCharacterFreqMapSame(character_freq_map){
 
         for ( let letter in this.character_frequency){
@@ -96,21 +105,3 @@ class Phrase {
 }
  
 
-/*
- // retail therapy
-<div id="phrase" class="section">
-    <ul>
-        <li class="hide letter h">h</li>
-        <li class="hide letter o">o</li>
-        <li class="hide letter w">w</li>
-        <li class="space"> </li>
-        <li class="hide letter a">a</li>
-        <li class="hide letter r">r</li>
-        <li class="hide letter e">e</li>
-        <li class="space"> </li>
-        <li class="hide letter y">y</li>
-        <li class="hide letter o">o</li>
-        <li class="hide letter u">u</li>
-    </ul>
-</div>
-*/

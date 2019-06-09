@@ -19,6 +19,7 @@ class Game {
         this.revealed_letters = {};
         this.lives_left = null; 
         this.game_over_callback = null; 
+        this.wrong_letters = {};
     } 
 
     addEndGameCallback(callback){
@@ -28,6 +29,8 @@ class Game {
     setActivePhrase(active_phrase){
         this.activePhrase = active_phrase; 
         this.activePhrase.buildCharacterFrequencyMap();
+        this.revealed_letters = {}; 
+        this.wrong_letters = {};
     }
 
     setLetterAsRevealed(letter){
@@ -61,12 +64,12 @@ class Game {
         this.setActivePhrase(randomphrase);
 
         // TODO: remove this when done 
-        console.log(randomphrase.phrase); 
+        //console.log(randomphrase.phrase); 
 
     }
     handleInteraction(letter, key_html_element) {
        let isletter = this.activePhrase.checkLetter(letter);
-       console.log("THis exist ? ",isletter);
+       //console.log("THis exist ? ",isletter);
        //check to see if its a win or remove a life, if else statement
        //let iscomplete = this.checkForWin();
        if ( isletter === true){
@@ -75,9 +78,17 @@ class Game {
             // change the character color to indicate right choice
             key_html_element.setAttribute("class","key chosen");
        }else{
+
            // change the characer color to indicate wrong choice 
            key_html_element.setAttribute("class","key wrong");
-           this.removeLife();
+
+           if (  !(letter in this.wrong_letters) ){
+              this.removeLife();
+               // add this to the list of wrong letters
+              this.wrong_letters[letter] = true;        
+           }
+
+           
        }
        // check to see if it is a loss due to zero lives left
        if ( this.countLives() <= 0 ){
@@ -91,10 +102,10 @@ class Game {
 
     checkForWin(){
         // checks to see if the player has revealed all the letter in the phrase.
-        console.log("revealed letters ",this.revealed_letters);
-        console.log("active phrase =  ",this.activePhrase.phrase);
+        //console.log("revealed letters ",this.revealed_letters);
+        //console.log("active phrase =  ",this.activePhrase.phrase);
         let res = this.activePhrase.isCharacterFreqMapSame(this.revealed_letters);
-        console.log("comparing gives = ",res); 
+        //console.log("comparing gives = ",res); 
         return res; 
     }
 
@@ -115,7 +126,7 @@ class Game {
         }
         return count_lives_left;   
     }
-
+    //Removing a heart when the person guesses the wrong letter.
     removeLife(){
         let alllives = document.getElementsByClassName("tries");
 
@@ -141,17 +152,3 @@ class Game {
     }
 }  
 
-/*
-
-Note: all methods are functions. 
-    * methods are only defined in a class whereas functions are defined anywhere
-
-
-*/
-
-/*
-a = [1,4,6,9]
-index = 2
-a[2]
-()
-*/
