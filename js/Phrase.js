@@ -49,11 +49,7 @@ class Phrase {
     checkLetter(letter) {
         //console.log(" checkLetter:: checking ",letter); 
 
-        if (this.phrase.includes(letter)) {
-            return true;
-        }else {
-             return false;
-        }
+        return this.phrase.includes(letter); 
         
     }
 
