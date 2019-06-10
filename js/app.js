@@ -11,7 +11,7 @@ const gameOver = (game_status) =>{
   if ( game_status ===  Game.GAME_WON) { 
       // Task: get the overlay html element using the document.getElementById
       let overlay_html_div = document.getElementById("overlay");
-      // Using this html element you've obtained, enalbe the overlay 
+      // Using this html element you've obtained, enable the overlay 
       overlay_html_div.style.visibility = "visible";
       // set the class to win 
       overlay_html_div.setAttribute("class", "win"); 
@@ -25,7 +25,7 @@ const gameOver = (game_status) =>{
       //this.startGame()
   }else{
     let overlay_html_div = document.getElementById("overlay");
-    // Using this html element you've obtained, enalbe the overlay 
+    // Using this html element you've obtained, enable the overlay 
     overlay_html_div.style.visibility = "visible";
     // set the class to win 
     overlay_html_div.setAttribute("class", "lose"); 
