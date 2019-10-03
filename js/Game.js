@@ -4,11 +4,11 @@
 
 
 class Game {
-    static GAME_LOST = "GAME_LOST";
+    static GAME_LOST = "GAME_LOST"; //static values do not change and stay the same throughout
     static  GAME_WON = "GAME_WON";
 
-    constructor() {
-        this.missed = 0;
+    constructor() { //constructor is called when you create a new instance of the class
+        this.missed = 0; //this refers to the instance of the game, setting the internal property of missed to zero
         this.phrases = [new Phrase("car wash"), 
                         new Phrase("retail therapy"), 
                         new Phrase("life is beautiful"), 
@@ -16,7 +16,7 @@ class Game {
                         new Phrase("stay vacation")]
         //this.phrases = [];
         this.activePhrase = null;
-        this.revealed_letters = {};
+        this.revealed_letters = {}; //empty object to avoid undefined errrors if you need to access a child
         this.lives_left = null; 
         this.game_over_callback = null; 
         this.wrong_letters = {};
@@ -35,9 +35,9 @@ class Game {
 
     setLetterAsRevealed(letter){
         if (this.revealed_letters === null){
-            this.revealed_letters = { }
+            this.revealed_letters = { } //sets the revealed letters to an empty object in case they are null
         }
-        this.revealed_letters[letter] = true;
+        this.revealed_letters[letter] = true; //sets the value of true
  
     }
 
@@ -52,10 +52,10 @@ class Game {
     }
     startGame(){
         // Task: get the overlay html element using the document.getElementById
-        let overlay_html_div = document.getElementById("overlay");
+        let overlay_html_div = document.getElementById("overlay"); //gets and hides the overlay of game over or game won
         // Using this html element you've obtained, hide it. (hint. you might need to check google)
         //overlay_html_div.style.display =   "none";
-        overlay_html_div.style.visibility = "hidden";
+        overlay_html_div.style.visibility = "hidden"; //hides the game overlay
         // Task3: get a random phrase, and store it in a variable called 'random_phrase'
         let randomphrase = this.getRandomPhrase();
         // Task4: on the random_phrase variable, call the method 'addPhraseToDisplay'
@@ -104,7 +104,7 @@ class Game {
         // checks to see if the player has revealed all the letter in the phrase.
         //console.log("revealed letters ",this.revealed_letters);
         //console.log("active phrase =  ",this.activePhrase.phrase);
-        let res = this.activePhrase.isCharacterFreqMapSame(this.revealed_letters);
+        let res = this.activePhrase.isCharacterFreqMapSame(this.revealed_letters); //revealed letters are the same as active phrase
         //console.log("comparing gives = ",res); 
         return res; 
     }
@@ -119,7 +119,7 @@ class Game {
         for (let i = 0; i < alllives.length; i++){
             let target = alllives[i]; 
             let innerhtml = target.innerHTML; 
-            if ( innerhtml.indexOf("liveHeart.png") !== -1){
+            if ( innerhtml.indexOf("liveHeart.png") !== -1){ //indexOf tells you if something is in the string or not, and the position of it
                 count_lives_left++;
  
             }

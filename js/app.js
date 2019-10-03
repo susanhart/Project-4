@@ -27,9 +27,9 @@ const gameOver = (game_status) =>{
     let overlay_html_div = document.getElementById("overlay");
     // Using this html element you've obtained, enable the overlay 
     overlay_html_div.style.visibility = "visible";
-    // set the class to win 
+    // set the class to lose 
     overlay_html_div.setAttribute("class", "lose"); 
-    // say Great Job !!!
+    // say "Sorry, better luck next time!"
 
     // get the element 
     let game_over_message = document.getElementById("game-over-message");
@@ -51,7 +51,7 @@ const setEventListeners = () =>{
      
     //console.log(letter);
   }
-  //add an event listener for loop for each of the array of 26 letters, have to add an event lsitener to all the buttons, adding an event lsitener to each one, like the pagination
+  //add an event listener for loop for each of the array of 26 letters, have to add an event listener to all the buttons, adding an event lsitener to each one, like the pagination
   for ( let i = 0; i < allKeys.length; i++){
     const element = allKeys[i]; 
     element.addEventListener("click",KeyEventListener);
